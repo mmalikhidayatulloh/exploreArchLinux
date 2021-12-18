@@ -31,7 +31,7 @@ mount /dev/sda1 /mnt
 ```
 install kernel
 ```
-pacstrap /mnt base base-devel linux linux-firmware linux-header vim
+pacstrap /mnt base linux linux-firmware vim intel-ucode
 ```
 generate fstab
 ```
@@ -81,7 +81,7 @@ passwd
 ```
 install package
 ```
-pacman -S grub networkmanager network-manager-applet wpa_supplicant xdg-utils xdg-user-dirs pulseaudio alsa-utils pavucontrol wireless_tools os-prober mtools dosfstools
+pacman -S grub ntfs-3g base-devel linux-headers networkmanager network-manager-applet wpa_supplicant xdg-utils xdg-user-dirs pulseaudio alsa-utils pavucontrol wireless_tools os-prober mtools dosfstools
 ```
 install grub
 ```
@@ -100,4 +100,31 @@ exit
 lepas
 ```
 umount -a
+```
+reboot
+```
+reboot
+```
+login
+
+buat user
+```
+useradd -aG wheel malik
+```
+```
+passwd malik
+```
+edit sudo
+```
+EDITOR=vim visudo
+```
+```
+pacman -S xf86-video-intel xorg git
+```
+copy windowsfont
+```
+mkdir /usr/share/fonts/WindowsFonts
+cp /Windows81/Windows/Fonts/* /usr/share/fonts/WindowsFonts/
+chmod 644 /usr/share/fonts/WindowsFonts/*
+fc-cache -f
 ```
