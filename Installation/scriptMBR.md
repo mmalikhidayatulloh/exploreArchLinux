@@ -19,7 +19,8 @@ buat partisi
 ```
 cfdisk
 ```
-* Pilih `DOS` jika `MBR` (Pilih `GPT` jika `UEFI`)
+* Pilih `DOS`
+* Jangan lupa rootnya tandai menjadi `bootable`
 * Write
 format partisi
 ```
@@ -31,7 +32,7 @@ mount /dev/sda1 /mnt
 ```
 install kernel
 ```
-pacstrap /mnt base linux linux-firmware vim intel-ucode
+pacstrap /mnt base linux-lts linux-lts-headers linux-firmware vim intel-ucode
 ```
 generate fstab
 ```
@@ -64,7 +65,7 @@ run
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=us" >> /etc/vconsole.conf
-echo "arch" >> /etc/hostname
+echo "arch-desktop" >> /etc/hostname
 ```
 ```
 vim /etc/hosts
@@ -81,7 +82,7 @@ passwd
 ```
 install package
 ```
-pacman -S grub ntfs-3g base-devel linux-headers networkmanager network-manager-applet wpa_supplicant xdg-utils xdg-user-dirs pulseaudio alsa-utils pavucontrol wireless_tools os-prober mtools dosfstools
+pacman -S grub ntfs-3g base-devel networkmanager network-manager-applet wpa_supplicant wireless_tools xdg-utils xdg-user-dirs xf86-video-intel gvfs os-prober mtools dosfstools xf86-input-libinput pipewire pipewire-pulse pipewire-media-session pipewire-alsa pavucontrol git
 ```
 install grub
 ```
@@ -114,12 +115,21 @@ useradd -aG wheel malik
 ```
 passwd malik
 ```
-edit sudo
+edit doas
 ```
-EDITOR=vim visudo
+vim /etc/doas.conf
 ```
 ```
-pacman -S xf86-video-intel xorg git
+permit :wheel
+```
+```
+vim .bashrc
+```
+```
+complete -cf doas
+```
+```
+pacman -S yay xorg <window manager or desktop environment>
 ```
 copy windowsfont
 ```
