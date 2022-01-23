@@ -4,13 +4,13 @@
 ## DISK
 ssd() {
   ssd="$(df -h | awk 'NR==4{print $3, $5}')"
-  echo -e "SSD:$ssd"
+  echo -e "SSD: $ssd"
 }
 
 ## RAM
 mem() {
   mem=`free | awk '/Mem/ {printf "%dM/%dM\n", $3 / 1024.0, $2 / 1024.0 }'`
-  echo -e "RAM:$mem"
+  echo -e "RAM: $mem"
 }
 
 ## CPU
@@ -21,13 +21,13 @@ cpu() {
   read cpu a b c idle rest < /proc/stat
   total=$((a+b+c+idle))
   cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
-  echo -e "CPU:$cpu%"
+  echo -e "CPU: $cpu%"
 }
 
-## VOLUME                                                                                        
+## VOLUME
 vol() {
-  | vol=`amixer get Master | awk -F'[][]' 'END{ print $4":"$2 }' | sed 's/on://g'`
-  | echo -e "VOL:$vol"
+    vol=`amixer get Master | awk -F'[][]' 'END{ print $4":"$2 }' | sed 's/on://g'`
+    echo -e "VOL: $vol"
 }
 
 SLEEP_SEC=1
@@ -39,5 +39,5 @@ SLEEP_SEC=1
 # echo output too long to display correctly.
 while :; do
   echo "| $(cpu) | $(mem) | $(ssd) | $(vol) |"
-  sleep $SLEEP_SEC
+	sleep $SLEEP_SEC
 done
